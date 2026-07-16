@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AppSurf PR – Previsão de ondas do litoral do Paraná</title>
+<meta name="description" content="Condições de surf em tempo real para Matinhos e Ilha do Mel. Classificação por hora: ótimo, bom, razoável, ruim ou péssimo." />
+<meta name="theme-color" content="#081820" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="ocean-glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M2 30c4-6 8-6 12 0s8 6 12 0 8-6 12 0 6 4 8 2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <path d="M2 38c4-6 8-6 12 0s8 6 12 0 8-6 12 0 6 4 8 2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+    <div>
+      <p class="brand-name">AppSurf<span>·PR</span></p>
+      <p class="brand-tag">Boletim do litoral paranaense</p>
+    </div>
+  </div>
+  <div class="topbar-meta">
+    <span id="clock" class="mono"></span>
+  </div>
+</header>
+
+<main>
+
+  <section class="picker" aria-label="Escolha de pico">
+    <div class="picker-row" id="cityTabs" role="tablist" aria-label="Cidade"></div>
+    <div class="picker-row spots" id="spotPills" role="tablist" aria-label="Pico / praia"></div>
+  </section>
+
+  <section id="heroSection" class="hero" aria-live="polite">
+    <div class="hero-loading" id="heroLoading">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Consultando boias e modelos de ondulação…</p>
+    </div>
+  </section>
+
+  <section class="strip-section" id="stripSection" hidden>
+    <div class="strip-header">
+      <h2>Hoje, hora a hora</h2>
+      <ul class="legend" id="legendList"></ul>
+    </div>
+    <ul class="line-legend">
+      <li><span class="line-swatch" style="--wave-line-color:var(--gold)"></span>Altura de ondulação</li>
+      <li><span class="line-swatch tide"></span>Maré</li>
+    </ul>
+    <p class="chart-hint">Toque numa hora do gráfico para ver os detalhes →</p>
+    <div class="strip-wrap">
+      <svg id="swellStrip" class="swell-strip" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-label="Gráfico interativo de condições por hora. Cada coluna é tocável."></svg>
+    </div>
+    <div class="tide-extremes" id="tideExtremes"></div>
+    <div class="hour-detail" id="hourDetail" hidden></div>
+  </section>
+
+  <section class="days-section" id="daysSection" hidden>
+    <h2>Próximos dias</h2>
+    <p class="chart-hint">Toque num dia para abrir a previsão hora a hora</p>
+    <div class="days-grid" id="daysGrid"></div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>Sobre os dados</h2>
+    <p>
+      As alturas, períodos e direções de ondulação vêm do modelo de ondas <strong>NOAA WaveWatch III / GFS Wave</strong> e do modelo atmosférico <strong>ICON (DWD)</strong>, distribuídos pela API pública <strong>Open-Meteo</strong> – a mesma classe de fontes que alimenta os principais serviços de meteorologia marinha do mundo. Não usamos boias fixas do INMET nesta primeira versão porque elas não oferecem uma API pública estável; isso está no radar para uma próxima versão.
+    </p>
+    <p>
+      A <strong>maré</strong> vem do modelo global incluído na mesma API de ondulação. Para a referência oficial de porto (Barra de Paranaguá), consulte a <a href="https://www.marinha.mil.br/chm/tabuas-de-mare-6" target="_blank" rel="noopener">Tábua de Marés da Diretoria de Hidrografia e Navegação (Marinha do Brasil)</a>.
+    </p>
+    <p>
+      A classificação (ótimo, bom, razoável, ruim, péssimo) cruza altura e período da ondulação, força e ângulo do vento em relação à orientação de cada praia, e a posição da maré do momento dentro da amplitude do dia. O ponto de maré ideal usado hoje é uma estimativa genérica (meia-maré) – conforme chegarem relatos da comunidade por pico, isso será calibrado spot a spot. É uma estimativa para orientar sua saída – sempre observe o mar antes de entrar.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Feito para quem confere o mar antes de sair de casa. Dados: Open-Meteo Marine &amp; Weather API. Fusos: America/Sao_Paulo.</p>
+  <p class="foot-small">v1.2 · Matinhos &amp; Ilha do Mel · maré + gráfico interativo – mais praias do litoral do PR em breve.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
